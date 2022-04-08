@@ -19,9 +19,9 @@ class _DetailState extends State<Detail> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.network(widget.image.toString(), width: 80,height: 80, ),
-              Text(widget.title.toString()),
-              Text(widget.tanggal.toString()),
+              Image.network(widget.image.toString(), width: 500,height: 500, ),
+              Text(widget.title.toString(), style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              Text(widget.tanggal.toString(), style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             ],
           ),
         ));

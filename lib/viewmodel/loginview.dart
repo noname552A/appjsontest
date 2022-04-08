@@ -5,7 +5,6 @@ import 'package:taniku/model/reslog.dart';
 import 'package:taniku/service/api/logapi.dart';
 import 'package:taniku/service/local/sharepref.dart';
 import 'package:taniku/view/botnav.dart';
-import 'package:taniku/view/homescreen.dart';
 
 
 class loginmod extends ChangeNotifier{
@@ -13,7 +12,9 @@ class loginmod extends ChangeNotifier{
   final _sharedPref = sharepref();
   Data dataLogin = new Data();
 
-  loginmod(BuildContext) {}
+  loginmod(BuildContext) {
+    _sharedPref.removeSharedPref();
+  }
 
   void login(String username, String password, BuildContext context) async{
     final response = await _loginApi.login(username, password, context);
@@ -25,6 +26,7 @@ class loginmod extends ChangeNotifier{
             "petani_id", dataLogin.detail!.petaniId.toString());
         _sharedPref.setStringSharedPref("user_id", dataLogin.userId.toString());
         print(jsonEncode(dataLogin));
+        print(_sharedPref.getStringSharedPref('token'));
         Navigator.push(context, MaterialPageRoute(builder: (context) => botnav()));
       }
       else {

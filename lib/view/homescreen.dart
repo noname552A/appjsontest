@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:taniku/viewmodel/homemod.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:taniku/view/navdraw.dart';
+import 'package:taniku/view/detail.dart';
 
 class homescreen extends StatefulWidget {
   const homescreen({Key? key}) : super(key: key);
@@ -81,7 +82,13 @@ class _homescreenState extends State<homescreen> {
                                                     ),
                                                   ],
                                                 ),
-                                                onTap: () async {},
+                                                onTap: () async {
+                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => Detail(
+                                                    image: viewModel.listhome[index].newsImage.toString(),
+                                                    tanggal: viewModel.listhome[index].newsDate.toString(),
+                                                    title: viewModel.listhome[index].newsTitle.toString(),
+                                                  )));
+                                                },
                                               )
                                           );
                                         },
@@ -115,7 +122,14 @@ class _homescreenState extends State<homescreen> {
                                         itemBuilder: (context, index) {
                                           return InkWell(
                                             onTap: () {
-                                              print("data : ${viewModel.listhome[index].newsTitle}");
+                                              Navigator.push(context, MaterialPageRoute(builder: (context) => Detail(
+                                                image: viewModel.listhome[index].newsImage.toString(),
+                                              tanggal: viewModel.listhome[index].newsDate.toString(),
+                                                title: viewModel.listhome[index].newsTitle.toString(),
+                                              )));
+                                              print("data : ${viewModel.listhome[index].newsTitle}"
+
+                                              );
                                             },
                                             child: Container(
                                                 width: 150,

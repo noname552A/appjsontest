@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taniku/view/profilescreen.dart';
 
 
 class navdraw extends StatelessWidget {
@@ -16,7 +17,7 @@ class navdraw extends StatelessWidget {
               text: 'Profile',
               onTap: () {
                 Navigator.pop(context);
-                // Navigator.push(context, MaterialPageRoute(builder: (_) => const date()));
+                 Navigator.push(context, MaterialPageRoute(builder: (_) => const profilemenu()));
               }),
           // _drawerItem(
           //     icon: Icons.group,
