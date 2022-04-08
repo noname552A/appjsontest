@@ -27,22 +27,21 @@ class _profilemenuState extends State<profilemenu> {
                     elevation: 0,
                     title: Text("Profile"),
                   ),
-
                   body: SingleChildScrollView(
                       child: Container(
-                          margin: const EdgeInsets.all(0),
+                          margin: const EdgeInsets.all(12),
+                        alignment: Alignment.center,
                         child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Image.asset("assets/ghost.png", width: 80, height: 80,),
+                                Image.asset("assets/ghost.png", width: 80, height: 80, alignment: Alignment.center,),
                                 const SizedBox(height: 36,),
-                                Text(viewModel.listprofile.nama.toString(),
+                                Text(viewModel.listprofile.nama.toString(), textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20
                                   ),),
                                 const SizedBox(height: 16,),
-                                Text(viewModel.listprofile.mobile.toString(),
+                                Text(viewModel.listprofile.mobile.toString(), textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20
