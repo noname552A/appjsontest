@@ -1,5 +1,8 @@
+import 'package:taniku/view/allscreen.dart';
 import 'package:taniku/view/homescreen.dart';
 import 'package:flutter/material.dart';
+import 'package:taniku/view/pabrikscreen.dart';
+import 'package:taniku/view/profilescreen.dart';
 
 class botnav extends StatefulWidget {
   const botnav({Key? key}) : super(key: key);
@@ -12,9 +15,9 @@ class _botnavState extends State<botnav> {
   int _selectedNavbar = 0;
   final List _widgetOption = [
     const homescreen(),
-    const homescreen(),
-    const homescreen(),
-    const homescreen(),
+    const pabrikscreen(),
+    const allscreen(),
+    const profilemenu(),
   ];
 
   void _changeSelectedNavBar(int index) {
@@ -44,7 +47,7 @@ class _botnavState extends State<botnav> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.mail),
-            label: 'Inbox',
+            label: 'Pengiriman',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),

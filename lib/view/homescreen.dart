@@ -5,6 +5,7 @@ import 'package:taniku/viewmodel/homemod.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:taniku/view/navdraw.dart';
 import 'package:taniku/view/detail.dart';
+import 'package:taniku/view/detailed.dart';
 
 class homescreen extends StatefulWidget {
   const homescreen({Key? key}) : super(key: key);
@@ -23,7 +24,9 @@ class _homescreenState extends State<homescreen> {
         builder: (context) {
           return Consumer<homemod>(
               builder: (context, viewModel, child) {
+
                 return Scaffold(
+
 
                   extendBodyBehindAppBar: false,
                   backgroundColor: Colors.blue,
@@ -41,6 +44,7 @@ class _homescreenState extends State<homescreen> {
                     drawer: navdraw(),
                     body: SingleChildScrollView(
                         child: Container(
+                            padding: EdgeInsets.all(10),
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -110,41 +114,66 @@ class _homescreenState extends State<homescreen> {
 
                                   //Listview Horizontal
                                   const SizedBox(height: 16,),
-                                  const Text("Data Horizontal", style: TextStyle(fontWeight: FontWeight.bold),),
+                                  const Text("Data Vertical", style: TextStyle(fontWeight: FontWeight.bold),),
                                   const SizedBox(height: 16,),
                                   SizedBox(
                                       width: double.infinity,
                                       height: 180,
                                       child: ListView.builder(
                                         shrinkWrap: true,
-                                        scrollDirection: Axis.horizontal,
-                                        itemCount: viewModel.listhome.length,
+                                        scrollDirection: Axis.vertical,
+                                        itemCount: viewModel.listvertical.length,
                                         itemBuilder: (context, index) {
                                           return InkWell(
                                             onTap: () {
-                                              Navigator.push(context, MaterialPageRoute(builder: (context) => Detail(
-                                                image: viewModel.listhome[index].newsImage.toString(),
-                                              tanggal: viewModel.listhome[index].newsDate.toString(),
-                                                title: viewModel.listhome[index].newsTitle.toString(),
-                                              )));
-                                              print("data : ${viewModel.listhome[index].newsTitle}"
+                                              Navigator.push(context, MaterialPageRoute(builder: (context) => detailedscreen(
+                                                kebunId: viewModel.listvertical[index].id,
+                                              //   image: viewModel.listvertical[index].foto.toString(),
+                                              // tanggal: viewModel.listvertical[index].jumlahPohon.toString(),
+                                              //   title: viewModel.listvertical[index].tahunTanamId.toString(),
+                                              // )));
 
-                                              );
+                                              //print("data : ${viewModel.listvertical[index].longitude}"
+
+
+                                              )));
                                             },
                                             child: Container(
+                                              padding: EdgeInsets.all(10),
                                                 width: 150,
                                                 alignment: Alignment.center,
                                                 child: Card(
+                                                  elevation: 16,
+                                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                                                   child: Container(
                                                     width: double.infinity,
                                                     margin: const EdgeInsets.all(8),
                                                     child: Column(
                                                       children: [
-                                                        Image.network(viewModel.listhome[index].newsImage.toString(), width: 70, height: 70,),
-                                                        const SizedBox(height: 16,),
-                                                        Text(viewModel.listhome[index].newsTitle.toString(), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                                                        Container(
+                                                          width: double.maxFinite,
+
+                                                          decoration: BoxDecoration(color: Colors.lightBlue),
+                                                          child:
+                                                          const Text("Lahan Kebun Petani",style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                                                        ),
+                                                        Text("Luas Kebun"),
+                                                        Text(viewModel.listvertical[index].luasKebun.toString(),style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold) ),
                                                         const SizedBox(height: 8,),
-                                                        Text(viewModel.listhome[index].newsDate.toString()),
+                                                        Text("Jumlah Pohon"),
+                                                        Text(viewModel.listvertical[index].jumlahPohon.toString(), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                                                        const SizedBox(height: 8,),
+                                                        Text("tahun tanam"),
+                                                        Text(viewModel.listvertical[index].tahunTanamId.toString(),style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                                                        const SizedBox(height: 8,),
+                                                        Text("Alamat"),
+                                                        Text(viewModel.listvertical[index].alamat.toString(),style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                                                        Text(viewModel.listvertical[index].kecamatanName.toString(),style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                                                        Text(viewModel.listvertical[index].kelurahanName.toString(),style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                                                        Text(viewModel.listvertical[index].kabupatenKotaName.toString(),style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                                                        Text(viewModel.listvertical[index].provinsiName.toString(),style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                                                        Text(viewModel.listvertical[index].kodePos.toString(),style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+
                                                       ],
                                                     ),
                                                   ),
