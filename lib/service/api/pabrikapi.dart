@@ -15,8 +15,8 @@ class pabrikapi {
 
   Future<pabrik> getpabrik(BuildContext context) async {
     var uri = Uri.parse(baseUrl + "api/niaga/pabrik/getPabrik").replace();
-    final tokenLocal = "OTE0YmNjNGFhZjhiNTRiMGMzMjAyMjg1YjBhZmM0MzQ5YjViNDhhZg==";
-    final localuser = "85";
+    final tokenLocal = await sharepref().getStringSharedPref("token");
+    final localuser = await sharepref().getStringSharedPref("user_id");
 
     Map<String, String> headersToken(String token) {
       return {

@@ -112,15 +112,13 @@ class _homescreenState extends State<homescreen> {
                                       )
                                   ),
 
-                                  //Listview Horizontal
                                   const SizedBox(height: 16,),
                                   const Text("Data Vertical", style: TextStyle(fontWeight: FontWeight.bold),),
                                   const SizedBox(height: 16,),
-                                  SizedBox(
-                                      width: double.infinity,
-                                      height: 180,
-                                      child: ListView.builder(
+
+                                       ListView.builder(
                                         shrinkWrap: true,
+                                        physics: ClampingScrollPhysics(),
                                         scrollDirection: Axis.vertical,
                                         itemCount: viewModel.listvertical.length,
                                         itemBuilder: (context, index) {
@@ -182,7 +180,6 @@ class _homescreenState extends State<homescreen> {
                                           );
                                         },
                                       )
-                                  ),
 
 
                           ]

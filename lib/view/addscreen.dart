@@ -319,14 +319,7 @@ class _addscreenState extends State<addscreen> {
                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                  children: [
                                                    InkWell(
-                                                     onTap: () {
-                                                       Navigator.push(
-                                                         context,
-                                                         MaterialPageRoute(
-                                                           builder: (context) => const botnav(),
-                                                         ),
-                                                       );
-                                                     },
+                                                     onTap: () => Navigator.pop(context),
                                                      child: Container(
                                                        width: width * 0.4,
                                                        padding: const EdgeInsets.all(

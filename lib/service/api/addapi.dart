@@ -16,9 +16,9 @@ class addapi {
 
   Future<add> getadd(String tgl, String tonasi, String id) async {
     var uri = Uri.parse(baseUrl + "api/niaga/reservasi/add").replace();
-    final tokenLocal = "OTE0YmNjNGFhZjhiNTRiMGMzMjAyMjg1YjBhZmM0MzQ5YjViNDhhZg==";
-    final localuser = "85";
-    final localpetani = "46";
+    final tokenLocal = await sharepref().getStringSharedPref("token");
+    final localuser = await sharepref().getStringSharedPref("user_id");
+    final localpetani = await sharepref().getStringSharedPref("petani_id");
 
     Map<String, String> headersToken(String token) {
       return {

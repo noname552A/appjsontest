@@ -44,8 +44,8 @@ class _pabrikscreenState extends State<pabrikscreen> {
                               const SizedBox(height: 16,),
                               const Text("Data", style: TextStyle(fontWeight: FontWeight.bold),),
                               const SizedBox(height: 16,),
-                              SizedBox(
-                                  child: ListView.builder(
+                                   ListView.builder(
+                                       physics: ClampingScrollPhysics(),
                                     shrinkWrap: true,
                                     itemBuilder: (context, index) {
                                       return InkWell(
@@ -147,7 +147,7 @@ class _pabrikscreenState extends State<pabrikscreen> {
                                       },
                                       itemCount: viewModel.listpabrik.length
                                   )
-                              ),
+
 
                             ]
                         )

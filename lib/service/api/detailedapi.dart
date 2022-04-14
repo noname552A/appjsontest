@@ -17,9 +17,9 @@ class detaileddapi {
 
   Future<dokumen> getdokumen(BuildContext context, String kebunId) async {
     var uri = Uri.parse(baseUrl + "api/niaga/kebun/getKebunSertifikat").replace();
-    final tokenLocal = "OTE0YmNjNGFhZjhiNTRiMGMzMjAyMjg1YjBhZmM0MzQ5YjViNDhhZg==";
+    final tokenLocal = await sharepref().getStringSharedPref("token");
     final localkebun = await sharepref().getStringSharedPref("kebun_id");
-    final localuser = "85";
+    final localuser = await sharepref().getStringSharedPref("user_id");
 
     Map<String, String> headersToken(String token) {
       return {
@@ -54,8 +54,8 @@ class detaileddapi {
 
   Future<sertifikat> getsertifikat(BuildContext context, String kebunId) async {
     var uri = Uri.parse(baseUrl + "api/niaga/kebun/getSertifikatList").replace();
-    final tokenLocal = 'OTE0YmNjNGFhZjhiNTRiMGMzMjAyMjg1YjBhZmM0MzQ5YjViNDhhZg==';
-    final localuser = "85";
+    final tokenLocal = await sharepref().getStringSharedPref("token");
+    final localuser = await sharepref().getStringSharedPref("user_id");
     //final localkebun = await sharepref().getStringSharedPref("kebun_id");
 
     Map<String, String> headersToken(String token) {
@@ -91,8 +91,8 @@ class detaileddapi {
 
   Future<one> getone(BuildContext context, String kebunId) async {
     var uri = Uri.parse(baseUrl + "api/niaga/kebun/findOneKebun").replace();
-    final tokenLocal = 'OTE0YmNjNGFhZjhiNTRiMGMzMjAyMjg1YjBhZmM0MzQ5YjViNDhhZg==';
-    final localuser = "85";
+    final tokenLocal = await sharepref().getStringSharedPref("token");
+    final localuser = await sharepref().getStringSharedPref("user_id");
     //final localkebun = await sharepref().getStringSharedPref("kebun_id");
 
     Map<String, String> headersToken(String token) {

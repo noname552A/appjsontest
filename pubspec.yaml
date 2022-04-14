@@ -41,7 +41,8 @@ dependencies:
   app_install_date: ^0.1.1
   intl: ^0.17.0
   date_format: ^2.0.6
-  qr_flutter: ^3.2.0
+  qr_flutter: ^4.0.0
+  qr: ^2.0.0-nullsafety
 
 dev_dependencies:
   flutter_test:
