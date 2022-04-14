@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:taniku/viewmodel/allmod.dart';
 
 class allscreen extends StatefulWidget {
@@ -102,11 +103,11 @@ class _allscreenState extends State<allscreen> {
                                                                           onTap: () {
                                                                             print("Indocyber");
                                                                           },
-                                                                          child: const Text(
-                                                                            'Indocyber',
+
+                                                                          child: Text(
+                                                                            viewModel.listall[index].namaPabrik.toString(),
                                                                             style: TextStyle(
                                                                               fontSize: 16,
-                                                                              color: Colors.black,
                                                                             ),
                                                                           ),
                                                                         )
@@ -128,11 +129,93 @@ class _allscreenState extends State<allscreen> {
                                                                     replacement: SizedBox(
                                                                       width: 100,
                                                                     ),
-                                                                    child: Icon(
+                                                                    child: IconButton( onPressed:(){ 
+                                                                      showDialog(context: context, builder: (context) =>
+                                                                          AlertDialog(
+                                                                          shape: RoundedRectangleBorder(
+                                                                          borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                                                                          contentPadding: EdgeInsets.only(),
+                                                                            content: Container(
+                                                                            width: 500.0,
+                                                                              child: Column(
+                                                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                                                                mainAxisSize: MainAxisSize.min,
+                                                                                  children: <Widget>[
+                                                                                      Container(
+                                                                                          padding: const EdgeInsets.only(
+                                                                                          left: 10, right: 10, bottom: 10.0, top: 10),
+                                                                                          decoration: const BoxDecoration(
+                                                                                            color: Colors.green,
+                                                                                            borderRadius: BorderRadius.only(
+                                                                                            topLeft: Radius.circular(20.0),
+                                                                                            topRight: Radius.circular(20.0)),
+                                                                                              ),
+                                                                                        child: Row(
+                                                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                            children: [
+                                                                                              const Text(
+                                                                                                "QR",
+                                                                                                style: TextStyle(color: Colors.white, fontSize: 18),
+                                                                                                textAlign: TextAlign.center,
+                                                                                                ),
+                                                                                        IconButton(
+                                                                                          onPressed: () => Navigator.pop(context),
+                                                                                          icon: const Icon(
+                                                                                          Icons.close,
+                                                                                          size: 36,
+                                                                                          color: Colors.white,
+                                                                                            ))
+                                                                                          ],
+                                                                                        ),
+                                                                                      ),
+                                                                                const SizedBox(
+                                                                                  height: 5.0,
+                                                                                  ),
+                                                                                Padding(
+                                                                                  padding: EdgeInsets.all(30),
+                                                                                  child: Center(
+                                                                                    child: Column(
+                                                                                      children: [
+                                                                                        QrImage(
+                                                                                        data: viewModel.listall[index].noReservasi.toString(),
+                                                                                        size: 200.0,
+                                                                                        ),
+                                                                                      Text(
+                                                                                        viewModel.listall[index].noReservasi.toString(),
+                                                                                          ),
+                                                                                      Container(
+                                                                                        height: 50,
+                                                                                          decoration: const BoxDecoration(
+                                                                                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                                                                                          color: Colors.orange),
+                                                                                        child: Center(
+                                                                                          child: InkWell(
+                                                                                            child: Text(
+                                                                                              "Return",
+                                                                                              style: TextStyle(
+                                                                                                fontSize: 20,
+                                                                                                color: Colors.white,
+                                                                                                fontWeight: FontWeight.bold),
+                                                                                                ),
+                                                                                          onTap: () => Navigator.pop(context),
+                                                                                              )),
+                                                                                            ),
+                                                                                          ],
+                                                                                        )),
+                                                                                      ),
+                                                                                    ],
+                                                                                  ),
+                                                                                ),
+                                                                      )
+                                                                      );
+                                                                    },
+                                                                      icon: Icon(
                                                                       Icons.calendar_view_week,
                                                                       size: 50,
                                                                       color: Colors.orange[700],
-                                                                    )),
+                                                                    ))),
 
                                                                 Visibility(
                                                                     visible: status == 1 ? true : false,
@@ -160,7 +243,7 @@ class _allscreenState extends State<allscreen> {
                                                                     child: ElevatedButton(
                                                                         onPressed: () {},
                                                                         style: ElevatedButton.styleFrom(
-                                                                          primary: Colors.green[700],
+                                                                          primary: Colors.blueAccent[700],
                                                                           shape:
                                                                           new RoundedRectangleBorder(
                                                                             borderRadius:

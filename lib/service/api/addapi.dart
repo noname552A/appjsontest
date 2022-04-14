@@ -14,9 +14,9 @@ class addapi {
   var client = http.Client();
   var baseUrl = "http://34.126.79.39:81/";
 
-  Future<add> getadd(BuildContext context, String id, String nama) async {
+  Future<add> getadd(String tgl, String tonasi, String id) async {
     var uri = Uri.parse(baseUrl + "api/niaga/reservasi/add").replace();
-    final tokenLocal = "N2IyN2I0N2ZmZGU3MmE4NjgxNDhjZGZlNTA4ZGFhZTY0Zjc4YmI0Yw==";
+    final tokenLocal = "OTE0YmNjNGFhZjhiNTRiMGMzMjAyMjg1YjBhZmM0MzQ5YjViNDhhZg==";
     final localuser = "85";
     final localpetani = "46";
 
@@ -28,12 +28,12 @@ class addapi {
       };
     }
     var _body = jsonEncode({
-       "koperasi_id": "",
+      "koperasi_id": "",
       "pabrik_id": id,
       "petani_id": localpetani,
-        "tanggal_pengiriman": "2022-03-16 17:46:00",
-        "tonasi": "1000" ,
-      'user_id': localuser,
+      "tanggal_pengiriman": "$tgl",
+      "tonasi": "$tonasi" ,
+      "user_id" : localuser,
     });
     print(tokenLocal);
     print(_body);

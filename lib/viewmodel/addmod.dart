@@ -7,12 +7,12 @@ class addmod extends ChangeNotifier {
   final _addapi = addapi();
 
 
-  addmod(BuildContext context, id, nama) {
+  addmod(BuildContext context) {
     // getadd(context, id, tanggal, tonasi);
   }
 
-  void getadd(BuildContext context,id, nama) async {
-    final response = await _addapi.getadd(context, id, nama);
+  void getadd(String tgl, String tonasi, String id) async {
+    final response = await _addapi.getadd(tgl,tonasi, id);
     if (response.error == null) {
       if (response.isSuccess == true) {
         print(response.message.toString());
