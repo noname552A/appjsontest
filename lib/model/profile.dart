@@ -1,7 +1,7 @@
 class profile {
   bool? isSuccess;
   String? message;
-  Data2? data;
+  Data? data;
   String? error;
 
   profile({this.isSuccess, this.message, this.data, this.error});
@@ -9,7 +9,7 @@ class profile {
   profile.fromJson(Map<String, dynamic> json) {
     isSuccess = json['isSuccess'];
     message = json['message'];
-    data = json['data'] != null ? new Data2.fromJson(json['data']) : null;
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
   }
 
   factory profile.withError(String error) => profile(error: error);
@@ -25,7 +25,7 @@ class profile {
   }
 }
 
-class Data2 {
+class Data {
   String? nama;
   Null? foto;
   String? mobile;
@@ -91,7 +91,7 @@ class Data2 {
   Null? updatedDate;
   Null? systemTime;
 
-  Data2(
+  Data(
       {this.nama,
         this.foto,
         this.mobile,
@@ -157,7 +157,7 @@ class Data2 {
         this.updatedDate,
         this.systemTime});
 
-  Data2.fromJson(Map<String, dynamic> json) {
+  Data.fromJson(Map<String, dynamic> json) {
     nama = json['nama'];
     foto = json['foto'];
     mobile = json['mobile'];
