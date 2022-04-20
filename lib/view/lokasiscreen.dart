@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import 'package:taniku/view/detailed.dart';
 import 'package:taniku/viewmodel/lokasiview.dart';
 import 'package:taniku/model/provinsi.dart';
 import 'package:taniku/model/kota.dart';
@@ -24,6 +23,8 @@ class _lokasiscreenState extends State<lokasiscreen> {
   var selecteddropdownkota;
   var selecteddropdowncamat;
   var selecteddropdowndesa;
+
+  var kodepos = TextEditingController();
 
   late double width;
   late double height;
@@ -185,6 +186,10 @@ class _lokasiscreenState extends State<lokasiscreen> {
                                                               setState(() {
                                                                 print(newValue.toString());
                                                                 selecteddropdownprovinsi = newValue.toString();
+                                                                selecteddropdownkota = null;
+                                                                selecteddropdowncamat = null;
+                                                                selecteddropdowndesa = null;
+                                                                kodepos.clear();
                                                                 viewModel.getkota(newValue.toString(), context);
                                                               });
                                                             },
@@ -220,6 +225,9 @@ class _lokasiscreenState extends State<lokasiscreen> {
                                                               setState(() {
                                                                 print(newValue.toString());
                                                                 selecteddropdownkota = newValue.toString();
+                                                                selecteddropdowncamat = null;
+                                                                selecteddropdowndesa = null;
+                                                                kodepos.clear();
                                                                 viewModel.getkecamatan(newValue.toString(), context);
                                                               });
                                                             },
@@ -255,6 +263,8 @@ class _lokasiscreenState extends State<lokasiscreen> {
                                                               setState(() {
                                                                 print(newValue.toString());
                                                                 selecteddropdowncamat = newValue.toString();
+                                                                selecteddropdowndesa = null;
+                                                                kodepos.clear();
                                                                 viewModel.getdesa(newValue.toString(), context);
                                                               });
                                                             },
@@ -295,11 +305,31 @@ class _lokasiscreenState extends State<lokasiscreen> {
                                                             items: viewModel.listdesa.map((Data4 listdesa
                                                                 ) {
                                                               return DropdownMenuItem(
+                                                                onTap: () => kodepos.text = listdesa.kodePos.toString(),
                                                                 value: listdesa.kelurahanDesaId.toString(),
                                                                 child: Text(listdesa.kelurahanDesaName.toString()),
                                                               );
                                                             }
                                                             ).toList(),
+                                                          ),
+                                                        ]
+                                                    ),
+
+                                                    const SizedBox(
+                                                      height: 20,
+                                                    ),
+
+                                                    Column(
+                                                        crossAxisAlignment: CrossAxisAlignment
+                                                            .start,
+                                                        children: <Widget>[
+                                                          SizedBox(
+                                                            height: 1,
+                                                          ),
+                                                          Text("Kode Pos"),
+                                                          TextFormField(
+                                                            readOnly: true,
+                                                            controller: kodepos,
                                                           ),
                                                         ]
                                                     ),
@@ -322,8 +352,38 @@ class _lokasiscreenState extends State<lokasiscreen> {
                                                                               .toString());
 
                                                                   print(
-                                                                      "Alamat => " +
-                                                                          selecteddropdownprovinsi.text
+                                                                      "RT => " +
+                                                                          textRT.text
+                                                                              .toString());
+
+                                                                  print(
+                                                                      "RW => " +
+                                                                          textRW.text
+                                                                              .toString());
+
+                                                                  print(
+                                                                      "Provinsi => " +
+                                                                          selecteddropdownprovinsi
+                                                                              .toString());
+
+                                                                  print(
+                                                                      "Kota => " +
+                                                                          selecteddropdownkota
+                                                                              .toString());
+
+                                                                  print(
+                                                                      "Kecamatan => " +
+                                                                          selecteddropdowncamat
+                                                                              .toString());
+
+                                                                  print(
+                                                                      "Kelurahan => " +
+                                                                          selecteddropdowndesa
+                                                                              .toString());
+
+                                                                  print(
+                                                                      "Kode Pos => " +
+                                                                          kodepos.text
                                                                               .toString());
 
                                                                   },

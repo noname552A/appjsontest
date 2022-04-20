@@ -32,7 +32,7 @@ class lokasimod extends ChangeNotifier {
     notifyListeners();
   }
 
-  void getkota(id, BuildContext context) async {
+  void getkota(String id, BuildContext context) async {
     final response = await lokasiApi.getkota(id, context);
     if (response.error == null) {
       if (response.isSuccess == true) {
@@ -47,7 +47,7 @@ class lokasimod extends ChangeNotifier {
     notifyListeners();
   }
 
-  void getkecamatan(id, BuildContext context) async {
+  void getkecamatan(String id, BuildContext context) async {
     final response = await lokasiApi.getkecamatan(id, context);
     if (response.error == null) {
       if (response.isSuccess == true) {
@@ -62,7 +62,7 @@ class lokasimod extends ChangeNotifier {
     notifyListeners();
   }
 
-  void getdesa(id, BuildContext context) async {
+  void getdesa(String id, BuildContext context) async {
     final response = await lokasiApi.getdesa(id, context);
     if (response.error == null) {
       if (response.isSuccess == true) {

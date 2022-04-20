@@ -46,7 +46,6 @@ class lokasiapi {
   Future<kota> getkota(String id, BuildContext context) async {
     var uri = Uri.parse(baseUrl + "api/niaga/wilayah/kabupatenKota").replace();
     final tokenLocal = await sharepref().getStringSharedPref("token");
-    final provinsiid = await sharepref().getStringSharedPref("provinsi_id");
 
     Map<String, String> headersToken(String token) {
       return {
@@ -56,14 +55,14 @@ class lokasiapi {
       };
     }
     var _body = jsonEncode({
-      'provinsi_id': provinsiid,
+      'provinsi_id': id,
     });
     print(tokenLocal);
     print(_body);
 
     try {
       final response = await client
-          .post(uri, headers: headersToken(tokenLocal))
+          .post(uri, headers: headersToken(tokenLocal), body: _body)
           .timeout(const Duration(seconds: 30));
       print(response.body);
       if (response.statusCode == HttpStatus.ok) {
@@ -79,7 +78,6 @@ class lokasiapi {
   Future<kecamatan> getkecamatan(String id, BuildContext context) async {
     var uri = Uri.parse(baseUrl + "api/niaga/wilayah/kecamatan").replace();
     final tokenLocal = await sharepref().getStringSharedPref("token");
-    final kotaid = await sharepref().getStringSharedPref("kabupaten_kota_id");
 
     Map<String, String> headersToken(String token) {
       return {
@@ -89,14 +87,14 @@ class lokasiapi {
       };
     }
     var _body = jsonEncode({
-      'kabupaten_kota_id': kotaid,
+      'kabupaten_kota_id': id,
     });
     print(tokenLocal);
     print(_body);
 
     try {
       final response = await client
-          .post(uri, headers: headersToken(tokenLocal))
+          .post(uri, headers: headersToken(tokenLocal), body: _body)
           .timeout(const Duration(seconds: 30));
       print(response.body);
       if (response.statusCode == HttpStatus.ok) {
@@ -112,7 +110,6 @@ class lokasiapi {
   Future<kelurahan> getdesa(String id, BuildContext context) async {
     var uri = Uri.parse(baseUrl + "api/niaga/wilayah/kelurahanDesa").replace();
     final tokenLocal = await sharepref().getStringSharedPref("token");
-    final camatid = await sharepref().getStringSharedPref("kecamatan_id");
 
     Map<String, String> headersToken(String token) {
       return {
@@ -122,14 +119,14 @@ class lokasiapi {
       };
     }
     var _body = jsonEncode({
-      'kecamatan_id': camatid,
+      'kecamatan_id': id,
     });
     print(tokenLocal);
     print(_body);
 
     try {
       final response = await client
-          .post(uri, headers: headersToken(tokenLocal))
+          .post(uri, headers: headersToken(tokenLocal), body: _body)
           .timeout(const Duration(seconds: 30));
       print(response.body);
       if (response.statusCode == HttpStatus.ok) {
