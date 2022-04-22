@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:taniku/view/dokumen.dart';
+import 'package:taniku/view/kebun.dart';
 import 'package:taniku/view/lokasiscreen.dart';
 
 class tabnav extends StatefulWidget {
@@ -40,8 +42,8 @@ class _tabnavState extends State<tabnav> {
           body: const TabBarView(
             children: [
               const lokasiscreen(),
-              Text("lorem ipsum1"),
-              Text("lorem ipsum2"),
+              const kebunscreen(),
+              const dokumenscreen(),
               Text("lorem ipsum3"),
             ],
           ),

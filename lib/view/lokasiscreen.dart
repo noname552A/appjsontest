@@ -18,13 +18,17 @@ class _lokasiscreenState extends State<lokasiscreen> {
   var textAlamat = new TextEditingController();
   var textRT = new TextEditingController();
   var textRW = new TextEditingController();
+  var kodepos = new TextEditingController();
 
   var selecteddropdownprovinsi;
   var selecteddropdownkota;
   var selecteddropdowncamat;
   var selecteddropdowndesa;
 
-  var kodepos = TextEditingController();
+  var provinsi = new TextEditingController();
+  var kota = new TextEditingController();
+  var camat = new TextEditingController();
+  var desa = new TextEditingController();
 
   late double width;
   late double height;
@@ -196,6 +200,10 @@ class _lokasiscreenState extends State<lokasiscreen> {
                                                             items: viewModel.listprovinsi.map((Data listprovinsi
                                                                 ) {
                                                               return DropdownMenuItem(
+                                                                onTap: () {
+                                                                  provinsi.text = listprovinsi.provinsiName.toString();
+                                                                  print(listprovinsi.provinsiName.toString());
+                                                                },
                                                                 value: listprovinsi.provinsiId.toString(),
                                                                 child: Text(listprovinsi.provinsiName.toString()),
                                                               );
@@ -234,6 +242,7 @@ class _lokasiscreenState extends State<lokasiscreen> {
                                                             items: viewModel.listkota.map((Data2 listkota
                                                                 ) {
                                                               return DropdownMenuItem(
+                                                                onTap: () => kota.text = listkota.kabupatenKotaName.toString(),
                                                                 value: listkota.kabupatenKotaId.toString(),
                                                                 child: Text(listkota.kabupatenKotaName.toString()),
                                                               );
@@ -271,6 +280,7 @@ class _lokasiscreenState extends State<lokasiscreen> {
                                                             items: viewModel.listcamat.map((Data3 listcamat
                                                                 ) {
                                                               return DropdownMenuItem(
+                                                                onTap: () => camat.text = listcamat.kecamatanName.toString(),
                                                                 value: listcamat.kecamatanId.toString(),
                                                                 child: Text(listcamat.kecamatanName.toString()),
                                                               );
@@ -305,7 +315,11 @@ class _lokasiscreenState extends State<lokasiscreen> {
                                                             items: viewModel.listdesa.map((Data4 listdesa
                                                                 ) {
                                                               return DropdownMenuItem(
-                                                                onTap: () => kodepos.text = listdesa.kodePos.toString(),
+                                                                onTap: () {
+                                                                  kodepos.text = listdesa.kodePos.toString();
+                                                                  desa.text = listdesa.kelurahanDesaName.toString();
+
+                                                                },
                                                                 value: listdesa.kelurahanDesaId.toString(),
                                                                 child: Text(listdesa.kelurahanDesaName.toString()),
                                                               );
@@ -363,22 +377,22 @@ class _lokasiscreenState extends State<lokasiscreen> {
 
                                                                   print(
                                                                       "Provinsi => " +
-                                                                          selecteddropdownprovinsi
+                                                                          provinsi.text
                                                                               .toString());
 
                                                                   print(
                                                                       "Kota => " +
-                                                                          selecteddropdownkota
+                                                                          kota.text
                                                                               .toString());
 
                                                                   print(
                                                                       "Kecamatan => " +
-                                                                          selecteddropdowncamat
+                                                                          camat.text
                                                                               .toString());
 
                                                                   print(
                                                                       "Kelurahan => " +
-                                                                          selecteddropdowndesa
+                                                                          desa.text
                                                                               .toString());
 
                                                                   print(
@@ -411,7 +425,7 @@ class _lokasiscreenState extends State<lokasiscreen> {
                                                             ]
                                                         ),
                                                         const SizedBox(
-                                                          height: 20,
+                                                          width: 50,
                                                         ),
                                                         Column(
                                                             crossAxisAlignment: CrossAxisAlignment.center,
