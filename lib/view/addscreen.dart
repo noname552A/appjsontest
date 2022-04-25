@@ -3,10 +3,6 @@ import 'package:intl/intl.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:taniku/model/add.dart';
-import 'package:taniku/view/allscreen.dart';
-import 'package:taniku/view/botnav.dart';
-import 'package:taniku/view/pabrikscreen.dart';
 import 'package:taniku/viewmodel/addmod.dart';
 
 class addscreen extends StatefulWidget {

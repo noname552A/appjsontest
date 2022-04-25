@@ -2,7 +2,7 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:taniku/model/dokumen3.dart';
-import 'package:taniku/model/sertifikat2.dart';
+import 'package:taniku/model/sertifikat3.dart';
 
 class database{
   late Database db;
@@ -98,47 +98,49 @@ class database{
   }
 
 
-  Future<List<Data2>> getlistsertifikat(BuildContext context) async {
+  Future<List<Datasertifikat>> getlistsertifikat(BuildContext context) async {
     final List<Map<String, dynamic>> data = await db.rawQuery('SELECT * FROM sertifikat');
     print(data);
     if (data.isNotEmpty) {
       return List.generate(data.length, (i) {
-        return Data2(
+        return Datasertifikat(
           sertifikasiId: data[i]['sertifikasiId'],
           sertifikasiName: data[i]['sertifikasiName'],
           sertifikasiNomor: data[i]["sertifikasiNomor"],
           sertifikasiTanggalDari: data[i]["sertifikasiTanggalDari"],
-          sertifikasiTanggalSampai: data[i]["sertifikasiTanggalSampai"]
+          sertifikasiTanggalSampai: data[i]["sertifikasiTanggalSampai"],
+            foto: data[i]["foto"]
           );
       });
     }
     return [];
   }
 
-  addsertifikat(String sertifikasiName, String sertifikasiNomor, String sertifikasiTanggalDari, String sertifikasiTanggalSampai, BuildContext context) async {
-    await db.rawInsert("INSERT INTO sertifikat (sertifikasiName, sertifikasiNomor, sertifikasiTanggalDari, sertifikasiTanggalSampai ) VALUES (?);",
+  addsertifikat(String sertifikasiName, String sertifikasiNomor, String sertifikasiTanggalDari, String sertifikasiTanggalSampai, String foto, BuildContext context) async {
+    await db.rawInsert("INSERT INTO sertifikat (sertifikasiName, sertifikasiNomor, sertifikasiTanggalDari, sertifikasiTanggalSampai, foto ) VALUES (?,?,?,?,?);",
         [sertifikasiName,sertifikasiNomor ,sertifikasiTanggalDari, sertifikasiTanggalSampai]);
   }
 
-  Future<Data2?> getsertifikatById(int sertifikasiId, BuildContext context) async {
+  Future<Datasertifikat?> getsertifikatById(int sertifikasiId, BuildContext context) async {
     List<Map> maps = await db.query('sertifikat',
         where: 'sertifikasiId = ?',
         whereArgs: [sertifikasiId]);
     if (maps.isNotEmpty) {
-      return Data2(
+      return Datasertifikat(
         sertifikasiId: maps[0]['sertifikasiId'],
         sertifikasiName: maps[0]['sertifikasiName'],
         sertifikasiNomor: maps[0]['sertifikasiNomor'],
         sertifikasiTanggalDari: maps[0]['sertifikasiTanggalDari'],
         sertifikasiTanggalSampai: maps[0]['sertifikasiTanggalSampai'],
+        foto: maps[0]['foto'],
       );
     }
     return null;
   }
 
-  editsertifikat(int sertifikasiId, String sertifikasiName, String sertifikasiNomor, String sertifikasiTanggalDari, String sertifikasiTanggalSampai, BuildContext context) async {
-    await db.rawInsert("UPDATE sertifikat SET sertifikasiName  = ?, sertifikasiNomor = ?, sertifikasiTanggalDari = ?, sertifikasiTanggalSampai = ?,  WHERE sertifikasiId = ?",
-        [sertifikasiName, sertifikasiNomor, sertifikasiTanggalDari, sertifikasiTanggalSampai, sertifikasiId]);
+  editsertifikat(int sertifikasiId, String sertifikasiName, String sertifikasiNomor, String sertifikasiTanggalDari, String sertifikasiTanggalSampai, String foto, BuildContext context) async {
+    await db.rawInsert("UPDATE sertifikat SET sertifikasiName  = ?, sertifikasiNomor = ?, sertifikasiTanggalDari = ?, sertifikasiTanggalSampai = ?, foto = ?,  WHERE sertifikasiId = ?",
+        [sertifikasiName, sertifikasiNomor, sertifikasiTanggalDari, sertifikasiTanggalSampai,foto , sertifikasiId]);
   }
 
   deletesertifikat(int sertifikasiId, BuildContext context) async {

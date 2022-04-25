@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:taniku/view/dokumen.dart';
 import 'package:taniku/view/kebun.dart';
 import 'package:taniku/view/lokasiscreen.dart';
+import 'package:taniku/view/sertifikat.dart';
 
 class tabnav extends StatefulWidget {
   const tabnav({Key? key}) : super(key: key);
@@ -44,7 +45,7 @@ class _tabnavState extends State<tabnav> {
               const lokasiscreen(),
               const kebunscreen(),
               const dokumenscreen(),
-              Text("lorem ipsum3"),
+              const sertifikatscreen(),
             ],
           ),
         ),

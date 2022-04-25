@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:taniku/model/sertifikat2.dart';
 import 'package:taniku/model/dokumen2.dart';
 import 'package:taniku/model/dokumen3.dart';
+import 'package:taniku/model/sertifikat3.dart';
 import 'package:taniku/service/local/database.dart';
 import 'package:taniku/service/api/dokumen2api.dart';
 import 'package:taniku/service/api/sertifikat2api.dart';
@@ -15,16 +16,20 @@ class dbdatamod extends ChangeNotifier{
   List<Data> listUser = [];
   List<Datadokumen> listdokumen = [];
   List<Data2> listUser2 = [];
+  List<Datasertifikat> listsertifikat = [];
   Data dataUser = Data();
   Datadokumen datadokumen = Datadokumen();
   Data2 dataUser2 = Data2();
+  Datasertifikat datasertifikat = Datasertifikat();
 
   dbdatamod(BuildContext context) {
     getdokumen(context);
     getsertifikat(context);
     getListdokument(context);
+    getListsertifikat(context);
   }
 
+  //token
   void getdokumen(BuildContext context) async {
     final response = await dokumenmod.getdokumen(context);
     if (response.error == null) {
@@ -55,9 +60,11 @@ class dbdatamod extends ChangeNotifier{
     notifyListeners();
   }
 
+  //dokumen
   void adddokumen(String dokumenName, String dokumenNoBlanko, String foto, BuildContext context) async {
     await dblocal.open();
     await dblocal.adddokumen(dokumenName, dokumenNoBlanko, foto, context);
+    getListdokument(context);
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Berhasil Tambah Data")));
     notifyListeners();
   }
@@ -66,7 +73,7 @@ class dbdatamod extends ChangeNotifier{
     getdokumenById(dokumenId, context);
   }
 
-  void getdokumenById(int dokumenId, BuildContext context) async {
+  getdokumenById(int dokumenId, BuildContext context) async {
     await dblocal.open();
     final response = await dblocal.getdokumenById(dokumenId, context);
     if (response != null) {
@@ -81,15 +88,21 @@ class dbdatamod extends ChangeNotifier{
       BuildContext context) async {
     await dblocal.open();
     await dblocal.editdokumen(dokumenId, dokumenName, dokumenNoBlanko, foto, context);
+    getListdokument(context);
     ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Berhasil Edit Data")));
     notifyListeners();
+  }
+
+  dokumentViewModel(BuildContext context){
+    getListdokument(context);
   }
 
   void getListdokument(BuildContext context) async {
     await dblocal.open();
     final response = await dblocal.getlistdokumen(context);
     if (response.isNotEmpty) {
+      getListdokument(context);
       listdokumen = response;
     } else {
       print("Tidak Ada Data");
@@ -105,13 +118,16 @@ class dbdatamod extends ChangeNotifier{
     notifyListeners();
   }
 
+
+  //sertifikat
   sertifikatViewModel(BuildContext context){
     getListsertifikat(context);
   }
 
-  void addsertifikat(String sertifikasiName, String sertifikasiNomor, String sertifikasiTanggalDari, String sertifikasiTanggalSampai, BuildContext context) async {
+  void addsertifikat(String sertifikasiName, String sertifikasiNomor, String sertifikasiTanggalDari, String sertifikasiTanggalSampai, String foto, BuildContext context) async {
     await dblocal.open();
-    await dblocal.addsertifikat(sertifikasiName, sertifikasiNomor, sertifikasiTanggalDari, sertifikasiTanggalSampai, context);
+    await dblocal.addsertifikat(sertifikasiName, sertifikasiNomor, sertifikasiTanggalDari, sertifikasiTanggalSampai, foto, context);
+    getListsertifikat(context);
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Berhasil Tambah Data")));
     notifyListeners();
   }
@@ -124,40 +140,38 @@ class dbdatamod extends ChangeNotifier{
     await dblocal.open();
     final response = await dblocal.getsertifikatById(sertifikasiId, context);
     if (response != null) {
-      dataUser2 = response;
+      datasertifikat = response;
     } else {
       print("Tidak Ada Data");
     }
     notifyListeners();
   }
 
-  void editsertifikat(int sertifikasiId, String sertifikasiName, String sertifikasiNomor, String sertifikasiTanggalDari, String sertifikasiTanggalSampai,
+  void editsertifikat(int sertifikasiId, String sertifikasiName, String sertifikasiNomor, String sertifikasiTanggalDari, String sertifikasiTanggalSampai,foto ,
       BuildContext context) async {
     await dblocal.open();
-    await dblocal.editsertifikat(sertifikasiId, sertifikasiName, sertifikasiNomor, sertifikasiTanggalDari, sertifikasiTanggalSampai, context);
+    await dblocal.editsertifikat(sertifikasiId, sertifikasiName, sertifikasiNomor, sertifikasiTanggalDari, sertifikasiTanggalSampai,foto , context);
+    getListsertifikat(context);
     ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Berhasil Edit Data")));
     notifyListeners();
-  }
-  documentViewModel(BuildContext context){
-    getListdokument(context);
   }
 
   void getListsertifikat(BuildContext context) async {
     await dblocal.open();
     final response = await dblocal.getlistsertifikat(context);
     if (response.isNotEmpty) {
-      listUser2 = response;
+      listsertifikat = response;
     } else {
       print("Tidak Ada Data");
     }
     notifyListeners();
   }
 
-  void deletesertifika(int sertifikasiId, BuildContext context) async {
+  void deletesertifikat(int sertifikasiId, BuildContext context) async {
     await dblocal.open();
     await dblocal.deletesertifikat(sertifikasiId, context);
-    getListdokument(context);
+    getListsertifikat(context);
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Berhasil Edit Data")));
     notifyListeners();
   }

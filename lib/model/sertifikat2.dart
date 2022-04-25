@@ -34,28 +34,19 @@ class sertifikat2 {
 class Data2 {
   int? sertifikasiId;
   String? sertifikasiName;
-  String? sertifikasiNomor;
-  String? sertifikasiTanggalDari;
-  String? sertifikasiTanggalSampai;
 
 
-  Data2({this.sertifikasiId, this.sertifikasiName, this.sertifikasiNomor, this.sertifikasiTanggalDari, this.sertifikasiTanggalSampai});
+  Data2({this.sertifikasiId, this.sertifikasiName});
 
   Data2.fromJson(Map<String, dynamic> json) {
     sertifikasiId = json['sertifikasi_id'];
     sertifikasiName = json['sertifikasi_name'];
-    sertifikasiNomor = json["sertifikasi_nomor"];
-    sertifikasiTanggalDari = json['sertifikasi_tanggal_dari'];
-    sertifikasiTanggalSampai = json['serifikasi_tanggal_sampai'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['sertifikasi_id'] = this.sertifikasiId;
     data['sertifikasi_name'] = this.sertifikasiName;
-    data['sertifikasi_nomor'] = this.sertifikasiNomor;
-    data['sertifikasi_tanggal_dari'] = this.sertifikasiTanggalDari;
-    data['sertifikasi_tanggal_sampai'] = this.sertifikasiTanggalSampai;
     return data;
   }
 }
