@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:taniku/model/addkebun.dart';
 import 'package:taniku/model/sertifikat2.dart';
 import 'package:taniku/model/dokumen2.dart';
 import 'package:taniku/model/dokumen3.dart';
@@ -15,18 +16,24 @@ class dbdatamod extends ChangeNotifier{
   final sertifikatmod = sertifikat2api();
   List<Data> listUser = [];
   List<Datadokumen> listdokumen = [];
+  List<ListDokumen> listkebundokumen = [];
   List<Data2> listUser2 = [];
   List<Datasertifikat> listsertifikat = [];
+  List<ListSertifikasi> listkebunsertifikasi = [];
   Data dataUser = Data();
   Datadokumen datadokumen = Datadokumen();
+  ListDokumen kebundokumen = ListDokumen();
   Data2 dataUser2 = Data2();
   Datasertifikat datasertifikat = Datasertifikat();
+  ListSertifikasi kebunsertifkasi = ListSertifikasi();
 
   dbdatamod(BuildContext context) {
     getdokumen(context);
     getsertifikat(context);
     getListdokument(context);
     getListsertifikat(context);
+    getkebunListDokumen(context);
+    getkebunListSertifikat(context);
   }
 
   //token
@@ -61,6 +68,19 @@ class dbdatamod extends ChangeNotifier{
   }
 
   //dokumen
+getkebunListDokumen(BuildContext context) async {
+  await dblocal.open();
+  final response = await dblocal.getkebundokumen(context);
+  if (response.isNotEmpty) {
+    listkebundokumen.clear();
+    listkebundokumen = response;
+  } else {
+    print("Tidak Ada Data");
+  }
+  notifyListeners();
+}
+
+
   void adddokumen(String dokumenName, String dokumenNoBlanko, String foto, BuildContext context) async {
     await dblocal.open();
     await dblocal.adddokumen(dokumenName, dokumenNoBlanko, foto, context);
@@ -102,7 +122,7 @@ class dbdatamod extends ChangeNotifier{
     await dblocal.open();
     final response = await dblocal.getlistdokumen(context);
     if (response.isNotEmpty) {
-      getListdokument(context);
+      listdokumen.clear();
       listdokumen = response;
     } else {
       print("Tidak Ada Data");
@@ -120,6 +140,18 @@ class dbdatamod extends ChangeNotifier{
 
 
   //sertifikat
+  getkebunListSertifikat(BuildContext context) async {
+    await dblocal.open();
+    final response = await dblocal.getkebunsertifikat(context);
+    if (response.isNotEmpty) {
+      listkebunsertifikasi.clear();
+      listkebunsertifikasi = response;
+    } else {
+      print("Tidak Ada Data");
+    }
+    notifyListeners();
+  }
+
   sertifikatViewModel(BuildContext context){
     getListsertifikat(context);
   }
@@ -136,7 +168,7 @@ class dbdatamod extends ChangeNotifier{
     getsertifikatById(sertifikasiId, context);
   }
 
-  void getsertifikatById(int sertifikasiId, BuildContext context) async {
+  getsertifikatById(int sertifikasiId, BuildContext context) async {
     await dblocal.open();
     final response = await dblocal.getsertifikatById(sertifikasiId, context);
     if (response != null) {
@@ -161,6 +193,7 @@ class dbdatamod extends ChangeNotifier{
     await dblocal.open();
     final response = await dblocal.getlistsertifikat(context);
     if (response.isNotEmpty) {
+      listsertifikat.clear();
       listsertifikat = response;
     } else {
       print("Tidak Ada Data");

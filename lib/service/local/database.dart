@@ -1,6 +1,7 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:taniku/model/addkebun.dart';
 import 'package:taniku/model/dokumen3.dart';
 import 'package:taniku/model/sertifikat3.dart';
 
@@ -68,6 +69,21 @@ class database{
     return [];
   }
 
+  Future<List<ListDokumen>> getkebundokumen(BuildContext context) async {
+    final List<Map<String, dynamic>> data = await db.rawQuery('SELECT * FROM dokumen');
+    print(data);
+    if (data.isNotEmpty) {
+      return List.generate(data.length, (i) {
+        return ListDokumen(
+          dokumenId: data[i]['dokumenId'],
+          nomor:  data[i]['dokumenNoBlanko'],
+          foto: data[i]['foto'],
+        );
+      });
+    }
+    return [];
+  }
+
   adddokumen(String dokumenName, String dokumenNoBlanko, String foto, BuildContext context) async {
     await db.rawInsert("INSERT INTO dokumen (dokumenName, dokumenNoBlanko, foto) VALUES (?, ?, ?);",
         [dokumenName, dokumenNoBlanko, foto ]);
@@ -110,6 +126,22 @@ class database{
           sertifikasiTanggalDari: data[i]["sertifikasiTanggalDari"],
           sertifikasiTanggalSampai: data[i]["sertifikasiTanggalSampai"],
             foto: data[i]["foto"]
+          );
+      });
+    }
+    return [];
+  }
+  Future<List<ListSertifikasi>> getkebunsertifikat(BuildContext context) async {
+    final List<Map<String, dynamic>> data = await db.rawQuery('SELECT * FROM sertifikat');
+    print(data);
+    if (data.isNotEmpty) {
+      return List.generate(data.length, (i) {
+        return ListSertifikasi(
+          sertifikasiId: data[i]['sertifikasiId'],
+          sertifikasiNo: data[i]["sertifikasiNomor"],
+          sertifikasiDari: data[i]["sertifikasiTanggalDari"],
+          sertifikasiSampai: data[i]["sertifikasiTanggalSampai"],
+            sertifikasiImage: data[i]["foto"]
           );
       });
     }

@@ -1,9 +1,11 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:taniku/viewmodel/homemod.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -114,11 +116,14 @@ void initState() {
           ),
     );
   }
-
-
+  late double width;
+  late double height;
+Completer<GoogleMapController> _controller = Completer();
 
   @override
   Widget build(BuildContext context) {
+    width = MediaQuery.of(context).size.width;
+    height = MediaQuery.of(context).size.height;
     var ukuran = MediaQuery.of(context).size;
     return ChangeNotifierProvider<homemod>(
         create: (context) => homemod(context),
@@ -274,6 +279,28 @@ void initState() {
                                                         Text(viewModel.listvertical[index].provinsiName.toString(),style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                                                         Text(viewModel.listvertical[index].kodePos.toString(),style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
 
+                                                        Wrap(
+                                                          children: [
+                                                            Container(
+                                                              margin: EdgeInsets.only(left: 10, right: 10),
+                                                              height: height*0.3,
+                                                              width: double.infinity,
+                                                              child: GoogleMap(
+                                                                mapType: MapType.normal,
+                                                                markers: <Marker> {Marker(markerId: const MarkerId("1"),
+                                                                    position: LatLng(double.parse(viewModel.listvertical[index].latitude.toString()),
+                                                                        double.parse(viewModel.listvertical[index].longitude.toString())))},
+                                                                initialCameraPosition: CameraPosition(
+                                                                    target: LatLng(double.parse(viewModel.listvertical[index].latitude.toString()),
+                                                                        double.parse(viewModel.listvertical[index].longitude.toString())), zoom: 15),
+                                                                onMapCreated: (GoogleMapController controller) {
+                                                                  _controller.complete(controller);
+                                                                },
+                                                              ),
+                                                            ),
+                                                            const SizedBox(height: 8,),
+                                                          ],
+                                                        ),
                                                       ],
                                                     ),
                                                   ),
@@ -281,9 +308,7 @@ void initState() {
                                             ),
                                           );
                                         },
-                                      )
-
-
+                                      ),
                           ]
                         )
                     )

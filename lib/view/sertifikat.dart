@@ -1,12 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:taniku/viewmodel/dbdatamod.dart';
+import 'package:taniku/viewmodel/tabviewmod.dart';
 
 
 class sertifikatscreen extends StatefulWidget {
-  const sertifikatscreen({Key? key}) : super(key: key);
+  final TabViewModel parentViewModel;
+  const sertifikatscreen({Key? key, required this.parentViewModel}) : super(key: key);
 
   @override
   State<sertifikatscreen> createState() => _sertifikatscreenState();
@@ -74,6 +78,7 @@ class _sertifikatscreenState extends State<sertifikatscreen> {
                       backgroundColor: Colors.blue,
                       body: SingleChildScrollView(
                         child: Container(
+                          padding: EdgeInsets.all(12),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -94,6 +99,7 @@ class _sertifikatscreenState extends State<sertifikatscreen> {
                                                   borderRadius: BorderRadius.all(Radius.circular(20.0))),
                                               contentPadding: EdgeInsets.only(),
                                               content: Container(
+                                                padding: EdgeInsets.all(8),
                                                   width: 500.0,
                                                   child: Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -357,6 +363,7 @@ class _sertifikatscreenState extends State<sertifikatscreen> {
                                                                                   borderRadius: BorderRadius.all(Radius.circular(20.0))),
                                                                               contentPadding: EdgeInsets.only(),
                                                                               content: Container(
+                                                                                padding: EdgeInsets.all(8),
                                                                                   width: 500.0,
                                                                                   child: Column(
                                                                                       mainAxisAlignment: MainAxisAlignment.start,
@@ -463,12 +470,17 @@ class _sertifikatscreenState extends State<sertifikatscreen> {
                                                           children: [
                                                             Column(
                                                                 crossAxisAlignment: CrossAxisAlignment.center,
-                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                 children: [
                                                                   InkWell(
                                                                     onTap: () {
                                                                       viewModel.addsertifikat(selecteddropdownsertifikat.toString(), nomor_sertifikat.text.toString(),_dateController.toString(),_dateController2.toString(), "foto", context);
-                                                                    },
+                                                                      Navigator.pop(context);
+                                                                      selecteddropdownsertifikat.clear();
+                                                                      nomor_sertifikat.clear();
+                                                                      _dateController.clear();
+                                                                      _dateController2.clear();
+                                                                      },
                                                                     child: Container(
                                                                       width: width * 0.2,
                                                                       padding: const EdgeInsets.all(
@@ -500,7 +512,13 @@ class _sertifikatscreenState extends State<sertifikatscreen> {
                                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                 children: [
                                                                   InkWell(
-                                                                    onTap: () => Navigator.pop(context),
+                                                                    onTap: () {
+                                                                      Navigator.pop(context);
+                                                                      selecteddropdownsertifikat.clear();
+                                                                      nomor_sertifikat.clear();
+                                                                      _dateController.clear();
+                                                                      _dateController2.clear();
+                                                                    },
                                                                     child: Container(
                                                                       width: width * 0.2,
                                                                       padding: const EdgeInsets.all(
@@ -642,7 +660,7 @@ class _sertifikatscreenState extends State<sertifikatscreen> {
                                                       children: [
                                                         IconButton(icon: Icon(Icons.mode_edit),
                                                           onPressed: () async {
-                                                            await viewModel.getdokumenById(int.parse(
+                                                            await viewModel.getsertifikatById(int.parse(
                                                             viewModel.listsertifikat[index].sertifikasiId.toString()), context);
                                                             showDialog(context: context, builder: (context) {
                                                            var nama = viewModel.datasertifikat.sertifikasiName.toString();
@@ -657,6 +675,7 @@ class _sertifikatscreenState extends State<sertifikatscreen> {
                                                                     borderRadius: BorderRadius.all(Radius.circular(20.0))),
                                                                 contentPadding: EdgeInsets.only(),
                                                                 content: Container(
+                                                                  padding: EdgeInsets.all(8),
                                                                     width: 500.0,
                                                                     child: Column(
                                                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1032,6 +1051,10 @@ class _sertifikatscreenState extends State<sertifikatscreen> {
                                                                                       onTap: () {
                                                                                         viewModel.editsertifikat(int.parse(viewModel.datasertifikat.sertifikasiId.toString()), selecteddropdownsertifikat.toString(), nomor_sertifikat.text.toString(),_dateController.toString(),_dateController2.toString(), "foto", context);
                                                                                         Navigator.pop(context);
+                                                                                        selecteddropdownsertifikat.clear();
+                                                                                        nomor_sertifikat.clear();
+                                                                                        _dateController.clear();
+                                                                                        _dateController2.clear();
                                                                                         },
                                                                                       child: Container(
                                                                                         width: width * 0.2,
@@ -1064,7 +1087,13 @@ class _sertifikatscreenState extends State<sertifikatscreen> {
                                                                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                                   children: [
                                                                                     InkWell(
-                                                                                      onTap: () => Navigator.pop(context),
+                                                                                      onTap: () {
+                                                                                        Navigator.pop(context);
+                                                                                        selecteddropdownsertifikat.clear();
+                                                                                        nomor_sertifikat.clear();
+                                                                                        _dateController.clear();
+                                                                                        _dateController2.clear();
+                                                                                        },
                                                                                       child: Container(
                                                                                         width: width * 0.2,
                                                                                         padding: const EdgeInsets.all(
@@ -1136,7 +1165,18 @@ class _sertifikatscreenState extends State<sertifikatscreen> {
                                           .spaceBetween,
                                       children: [
                                         InkWell(
-                                          onTap: () {},
+                                          onTap: () {
+                                            Navigator.pop(context);
+
+                                            widget.parentViewModel.addKebunModel.listSertifikasi = viewModel.listkebunsertifikasi;
+
+                                            widget.parentViewModel.addKebun(context);
+                                            print(
+                                                jsonEncode(
+                                                    widget.parentViewModel.addKebunModel.listSertifikasi)
+                                            );
+
+                                          },
                                           child: Container(
                                             width: width * 0.4,
                                             padding: const EdgeInsets.all(

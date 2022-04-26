@@ -1,23 +1,20 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:taniku/model/dokumen2.dart';
+import 'package:taniku/model/addkebun.dart';
 import 'package:taniku/service/local/sharepref.dart';
-import 'package:taniku/model/dokumen3.dart';
 
-
-
-class dokumenapi2 {
+class KebunApi {
   var client = http.Client();
   var baseUrl = "http://34.126.79.39:81/";
 
-  Future<dokumen2> getdokumen(BuildContext context) async {
-    var uri = Uri.parse(baseUrl + "api/niaga/listJenisDokumen").replace();
+  Future<String> addKebun(AddKebunModel addKebunModel, BuildContext context) async {
+    var uri = Uri.parse(baseUrl + "api/niaga/kebun/addKebun").replace();
     final tokenLocal = await sharepref().getStringSharedPref("token");
-
     Map<String, String> headersToken(String token) {
       return {
         'Content-Type': 'application/json',
@@ -25,21 +22,26 @@ class dokumenapi2 {
         'Authorization': 'Bearer $token'
       };
     }
+    var _body = jsonEncode(addKebunModel);
 
     print(tokenLocal);
+    print(_body);
 
     try {
       final response = await client
-          .get(uri, headers: headersToken(tokenLocal))
+          .post(uri, headers: headersToken(tokenLocal), body: _body)
           .timeout(const Duration(seconds: 30));
       print(response.body);
       if (response.statusCode == HttpStatus.ok) {
-        return dokumen2.fromJson(jsonDecode(response.body));
+        // return ResponseListKebun.fromJson(jsonDecode(response.body));
+        return "";
       } else {
-        return dokumen2.withError("Gagal Load Data");
+        // return ResponseListKebun.withError("Gagal Load Data");
+        return "";
       }
     } on TimeoutException catch (_) {
-      return dokumen2.withError("Waktu Habis, Silahkan Coba Kembali");
+      // return ResponseListKebun.withError("Waktu Habis, Silahkan Coba Kembali");
+      return "";
     }
   }
 

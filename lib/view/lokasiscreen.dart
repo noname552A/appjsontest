@@ -6,9 +6,11 @@ import 'package:taniku/model/provinsi.dart';
 import 'package:taniku/model/kota.dart';
 import 'package:taniku/model/kecamatan.dart';
 import 'package:taniku/model/kelurahan.dart';
+import 'package:taniku/viewmodel/tabviewmod.dart';
 
 class lokasiscreen extends StatefulWidget {
-  const lokasiscreen({Key? key}) : super(key: key);
+  final TabViewModel parentViewModel;
+   lokasiscreen({Key? key,required this.parentViewModel}) : super(key: key);
 
   @override
   State<lokasiscreen> createState() => _lokasiscreenState();
@@ -360,6 +362,15 @@ class _lokasiscreenState extends State<lokasiscreen> {
                                                             children: [
                                                               InkWell(
                                                                 onTap: () {
+                                                                  widget.parentViewModel.addKebunModel.alamat = textAlamat.text.toString();
+                                                                  widget.parentViewModel.addKebunModel.rt = textRT.text.toString();
+                                                                  widget.parentViewModel.addKebunModel.rw = textRW.text.toString();
+                                                                  widget.parentViewModel.addKebunModel.provinsiId = provinsi.text.toString();
+                                                                  widget.parentViewModel.addKebunModel.kabupatenKotaId = kota.text.toString();
+                                                                  widget.parentViewModel.addKebunModel.kecamatanId = camat.text.toString();
+                                                                  widget.parentViewModel.addKebunModel.kelurahanId = desa.text.toString();
+                                                                  widget.parentViewModel.addKebunModel.kodePos = kodepos.text.toString();
+
                                                                   print(
                                                                       "Alamat => " +
                                                                           textAlamat.text

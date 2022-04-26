@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:taniku/viewmodel/dbdatamod.dart';
+import 'package:taniku/viewmodel/tabviewmod.dart';
 
 class dokumenscreen extends StatefulWidget {
-  const dokumenscreen({Key? key}) : super(key: key);
+  final TabViewModel parentViewModel;
+  const dokumenscreen({Key? key, required this.parentViewModel}) : super(key: key);
 
   @override
   State<dokumenscreen> createState() => _dokumenscreenState();
@@ -32,14 +36,15 @@ class _dokumenscreenState extends State<dokumenscreen> {
                   builder: (context, viewModel, child) {
                     return Scaffold(
                         extendBodyBehindAppBar: false,
-                        backgroundColor: Colors.blue,
+                        backgroundColor: Colors.white,
                         body: SingleChildScrollView(
                           child: Container(
+                            padding: const EdgeInsets.all(12),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-
                                 const SizedBox(height: 16,),
+                                SizedBox(width: 20,),
                                 const Text("Data", style: TextStyle(
                                     fontWeight: FontWeight.bold),),
                                 const SizedBox(height: 16,),
@@ -52,16 +57,17 @@ class _dokumenscreenState extends State<dokumenscreen> {
                                         onTap: () {showDialog(context: context, builder: (context) =>
                                             AlertDialog(
                                                 shape: RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                                                    borderRadius: BorderRadius.all(Radius.circular(40.0))),
                                                 contentPadding: EdgeInsets.only(),
                                                 content: Container(
+                                                  padding: EdgeInsets.all(6),
                                                     width: 500.0,
                                                     child: Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        crossAxisAlignment: CrossAxisAlignment.center,
                                                         children: <Widget>[
                                                           Container(
                                                             padding: const EdgeInsets.only(
-                                                                left: 10, right: 10, bottom: 10.0, top: 10),
+                                                                left: 20, right: 20, bottom: 10.0, top: 10),
                                                             decoration: const BoxDecoration(
                                                               color: Colors.blue,
                                                               borderRadius: BorderRadius.only(
@@ -69,7 +75,7 @@ class _dokumenscreenState extends State<dokumenscreen> {
                                                                   topRight: Radius.circular(20.0)),
                                                             ),
                                                             child: Column(
-                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                               crossAxisAlignment: CrossAxisAlignment.center,
                                                               children: [
                                                                 const Text(
@@ -82,7 +88,7 @@ class _dokumenscreenState extends State<dokumenscreen> {
                                                           ),
 
                                                           const SizedBox(
-                                                            height: 20,
+                                                            height: 10,
                                                           ),
 
                                                           Column(
@@ -121,7 +127,7 @@ class _dokumenscreenState extends State<dokumenscreen> {
                                                           ),
 
                                                           const SizedBox(
-                                                            height: 20,
+                                                            height: 10,
                                                           ),
 
 
@@ -224,6 +230,7 @@ class _dokumenscreenState extends State<dokumenscreen> {
                                                                                     borderRadius: BorderRadius.all(Radius.circular(20.0))),
                                                                                 contentPadding: EdgeInsets.only(),
                                                                                 content: Container(
+                                                                                  padding: EdgeInsets.all(12),
                                                                                     width: 500.0,
                                                                                     child: Column(
                                                                                         mainAxisAlignment: MainAxisAlignment.start,
@@ -232,7 +239,7 @@ class _dokumenscreenState extends State<dokumenscreen> {
                                                                                         children: <Widget>[
                                                                                           Container(
                                                                                             padding: const EdgeInsets.only(
-                                                                                                left: 10, right: 10, bottom: 10.0, top: 10),
+                                                                                                left: 20, right: 20, bottom: 10.0, top: 10),
                                                                                             decoration: const BoxDecoration(
                                                                                               color: Colors.blue,
                                                                                               borderRadius: BorderRadius.only(
@@ -327,15 +334,21 @@ class _dokumenscreenState extends State<dokumenscreen> {
                                                           ),
 
                                                           Row(
+                                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                             children: [
                                                               Column(
-                                                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                  // crossAxisAlignment: CrossAxisAlignment.center,
+                                                                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                   children: [
                                                                     InkWell(
                                                                       onTap: () {
                                                                         viewModel.adddokumen(selecteddropdowndokumen.toString(), nomor_dokumen.text.toString(), "foto", context);
-                                                                      },
+                                                                      dokumen.clear();
+                                                                      nomor_dokumen.clear();
+                                                                      selecteddropdowndokumen.clear();
+                                                                        Navigator.pop(context);
+                                                                        },
                                                                       child: Container(
                                                                         width: width * 0.2,
                                                                         padding: const EdgeInsets.all(
@@ -360,11 +373,11 @@ class _dokumenscreenState extends State<dokumenscreen> {
                                                                   ]
                                                               ),
                                                               const SizedBox(
-                                                                width: 10,
+                                                                width: 5,
                                                               ),
                                                               Column(
-                                                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                  // crossAxisAlignment: CrossAxisAlignment.center,
+                                                                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                   children: [
                                                                     InkWell(
                                                                       onTap: () => Navigator.pop(context),
@@ -521,24 +534,25 @@ class _dokumenscreenState extends State<dokumenscreen> {
                                                            nomor_dokumen.text = nomor;
                                                             return AlertDialog(
                                                               shape: RoundedRectangleBorder(
-                                                              borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                                                              borderRadius: BorderRadius.all(Radius.circular(40.0))),
                                                               contentPadding: EdgeInsets.only(),
                                                               content: Container(
+                                                                padding: EdgeInsets.all(8),
                                                               width: 500.0,
                                                                 child: Column(
-                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                  crossAxisAlignment: CrossAxisAlignment.center,
                                                                   children: <Widget>[
                                                                   Container(
                                                                     padding: const EdgeInsets.only(
-                                                                    left: 10, right: 10, bottom: 10.0, top: 10),
+                                                                    left: 10, right: 30, bottom: 10.0, top: 10),
                                                                     decoration: const BoxDecoration(
                                                                      color: Colors.blue,
                                                                       borderRadius: BorderRadius.only(
-                                                                       topLeft: Radius.circular(20.0),
-                                                                       topRight: Radius.circular(20.0)),
+                                                                       topLeft: Radius.circular(40.0),
+                                                                       topRight: Radius.circular(40.0)),
                                                                         ),
                                                                      child: Column(
-                                                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                        crossAxisAlignment: CrossAxisAlignment.center,
                                                                         children: [
                                                                           const Text(
@@ -552,7 +566,7 @@ class _dokumenscreenState extends State<dokumenscreen> {
 
                                                                    const SizedBox(
                                                                    height: 20,
-                                                                       ),
+                                                                   ),
 
                                                                   Column(
                                                                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -796,12 +810,17 @@ class _dokumenscreenState extends State<dokumenscreen> {
                                                                   Row(
                                                                   children: [
                                                                     Column(
-                                                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                       children: [
                                                                         InkWell(
                                                                           onTap: () {
-                                                                          viewModel.editdokument(int.parse(viewModel.datadokumen.dokumenId.toString()),selecteddropdowndokumen.toString(), nomor_dokumen.text.toString(), "foto", context);
+                                                                          viewModel.editdokument(int.parse(viewModel.datadokumen.dokumenId.toString()),selecteddropdowndokumen.toString(),
+                                                                              nomor_dokumen.text.toString(), "foto", context);
+                                                                          dokumen.clear();
+                                                                          nomor_dokumen.clear();
+                                                                          selecteddropdowndokumen.clear();
+                                                                          Navigator.pop(context);
                                                                           },
                                                                           child: Container(
                                                                           width: width * 0.2,
@@ -834,7 +853,12 @@ class _dokumenscreenState extends State<dokumenscreen> {
                                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                       children: [
                                                                         InkWell(
-                                                                        onTap: () => Navigator.pop(context),
+                                                                        onTap: () {Navigator.pop(context);
+                                                                          dokumen.clear();
+                                                                          nomor_dokumen.clear();
+                                                                          selecteddropdowndokumen.clear();
+
+                                                                        },
                                                                           child: Container(
                                                                           width: width * 0.2,
                                                                           padding: const EdgeInsets.all(
@@ -897,8 +921,12 @@ class _dokumenscreenState extends State<dokumenscreen> {
                                         children: [
                                           InkWell(
                                             onTap: () {
+                                              widget.parentViewModel.addKebunModel.listDokumen = viewModel.listkebundokumen;
 
-
+                                              print(
+                                                jsonEncode(
+                                                    widget.parentViewModel.addKebunModel.listDokumen)
+                                              );
                                             },
                                             child: Container(
                                               width: width * 0.4,

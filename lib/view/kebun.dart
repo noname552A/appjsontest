@@ -4,10 +4,12 @@ import 'package:provider/provider.dart';
 import 'package:taniku/viewmodel/kebunmod.dart';
 import 'package:taniku/model/bibit.dart';
 import 'package:taniku/model/lahan.dart';
+import 'package:taniku/viewmodel/tabviewmod.dart';
 
 
 class kebunscreen extends StatefulWidget {
-  const kebunscreen({Key? key}) : super(key: key);
+  final TabViewModel parentViewModel;
+  const kebunscreen({Key? key, required this.parentViewModel}) : super(key: key);
 
   @override
   State<kebunscreen> createState() => kebunscreenState();
@@ -471,7 +473,15 @@ class kebunscreenState extends State<kebunscreen> {
                                                         children: [
                                                           InkWell(
                                                             onTap: () {
+                                                              widget.parentViewModel.addKebunModel.luasKebun = luaskebun.text.toString();
+                                                              widget.parentViewModel.addKebunModel.jenisBibitId = bibit.text.toString();
+                                                              widget.parentViewModel.addKebunModel.statusLahanId = lahan.text.toString();
+                                                              widget.parentViewModel.addKebunModel.tahunTanamId = tahuntanam.text.toString();
+                                                              widget.parentViewModel.addKebunModel.potensiProduksi = produksi.text.toString();
+
+
                                                               print(
+
                                                                   "Luas Kebun => " +
                                                                       luaskebun.text
                                                                           .toString()+" HA");
